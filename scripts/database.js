@@ -97,25 +97,42 @@ const database = {
             customerName: "Bobby",
             timestamp: 1614659931693,
         },
-        {
-            id: 2,
-            paintId: 5,
-            interiorId: 2,
-            technologyId: 3,
-            wheelId: 1,
-            customerName: "Sally",
-            timestamp: 1619707361509,
-        },
     ],
     orderBuilder: {},// it is a temporary state since the data is not changed permanently. its held here so the customer can change their choices, until the customer hit the order buttion
 }
+export const addCustomOrders = () => {
+    if (
+        "interiorId" in database.orderBuilder &&
+        "paintId" in database.orderBuilder &&
+        "wheelId" in database.orderBuilder &&
+        "technologyId" in database.orderBuilder
+    ) {
+        const newOrder = { ...database.orderBuilder }
+        if (database.customOrders.length > 0) {
+            newOrder.id = [...database.customOrders].pop().id + 1
+        } else {
+            newOrder.id = 1
+        }
+            //newOrder.id = [...database.customOrders].pop().id + 1  
+            newOrder.timestamp = Date.now()
+            database.customOrders.push(newOrder)
+            database.orderBuilder = {}
+            document.dispatchEvent(new CustomEvent("stateChanged"))
+            return true
+        
+        } else  {
+           return false  
+        }
+       
+    }
+
 export const getPaintColor = () => {
     return [...database.paint]
 }
 export const getWheels = () => {
     return [...database.wheels]
 }
-export const getStyles = () => {
+export const getInteriors = () => {
     return [...database.interior]
 }
 export const getTechnologies = () => {
@@ -141,30 +158,4 @@ export const setPaint = (id) => {
 export const setInterior = (id) => {
     database.orderBuilder.interiorId = id
 }
-
-export const customOrders = () => {
-    // Copy the current state of user choices
-    const newOrder = { ...database.orderBuilder }
-    ///above is the spread operator withe the 3 dots
-    // Add a new primary key to the object
-    newOrder.id = [...database.customOrders].pop().id + 1
-    //pop in this stiuation will retun a new object
-
-    // Add a timestamp to the order
-    newOrder.timestamp = Date.now()
-
-    // Add the new order object to custom orders state
-    database.customOrders.push(newOrder)
-
-    // Reset the temporary state for user choices
-    database.orderBuilder = {}
-
-    // Broadcast a notification that permanent state has changed
-    document.dispatchEvent(new CustomEvent("stateChanged"))
-}
-
-
-
-
-
 

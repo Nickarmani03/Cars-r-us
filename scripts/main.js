@@ -11,8 +11,8 @@ const renderAllHTML = () => {
 renderAllHTML()
 
 document.addEventListener(
-    "ordersStateHasChanged",
+    "stateChanged",
     () => {
-        renderHTML()
+        renderAllHTML()
     }
 )

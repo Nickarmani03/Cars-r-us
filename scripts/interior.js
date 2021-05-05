@@ -1,6 +1,6 @@
-import { getStyles, setInterior } from "./database.js"
+import { getInteriors, setInterior } from "./database.js"
 
-const styles = getStyles()
+const interiors = getInteriors()
 
 document.addEventListener(
     "change",
@@ -17,7 +17,7 @@ export const Interiors = () => {
 
     let html = "<ul class='choice--list interior--list'>"
 
-    for (const interior of styles) {
+    for (const interior of interiors) {
         html += `<li class="choice-list-item interior--list-item">
         <input type="radio" value="interior--${interior.id}" name="interior"> ${interior.type}
         <div class="price">Price: $${interior.price.toFixed(2)}</div>
