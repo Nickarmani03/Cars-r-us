@@ -34,11 +34,11 @@ const listItemsArray = (order) => {
 
     return `
         <div class="order">
-                    Order #${order.id} placed at ${new Date(order.timestamp).toLocaleString()}, has the interior seats order of ${foundInterior.type} with a ${foundTechnology.package}. You have also selected to combine that package with the extirior color of ${foundPaint.color}, and the matching ${foundWheel.type} rims.for a cost of 
+        Order #${order.id} placed at ${new Date(order.timestamp).toLocaleString()}, has the interior seats order of ${foundInterior.type} with a ${foundTechnology.package}. You have also selected to combine that package with the extirior color of ${foundPaint.color}, and the matching ${foundWheel.type} rims, all for a total cost of 
 ${totalCost.toLocaleString("en-US", {
         style: "currency",
         currency: "USD"
-    })}
+    })}.
         </div>
         `
 }
