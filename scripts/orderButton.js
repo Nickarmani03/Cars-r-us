@@ -1,13 +1,13 @@
-import { customOrders } from "./database.js"
+import { addCustomOrders } from "./database.js"
 
 document.addEventListener(
     "click",
     (clickEvent) => {
         if (clickEvent.target.id === "theOrderButton") {
-            const customerOrderSuccess = customOrders()
+            const customerOrderSuccess = addCustomOrders()
 
             if (!customerOrderSuccess) {
-                window.alert("Your order is incomplete! Please choose from all options.")
+                window.alert("Your order is not complete, ya filthy animal!")
             }
         }
     }

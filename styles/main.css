@@ -23,7 +23,7 @@ ul {
 .choice--list {
     padding-left: .5rem; 
 }
-.ingredients--container {
+.choices {
     display: flex;
     justify-content: space-around;
 }
@@ -35,4 +35,13 @@ ul {
     background-color:#0e4bef ;
     color: rgb(241, 241, 236);
     font-size: 1rem;
+}
+
+.options {
+    flex-basis: 24%;
+    margin: 0 2rem;
+    border: 1px dashed dodgerblue;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0.25rem 0.25rem 0.5rem rgb(143, 143, 143);
 }

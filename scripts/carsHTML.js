@@ -9,7 +9,8 @@ import { theOrderButton } from "./orderButton.js"
 
 export const carsRUsHTML = () => {
     return `
-        <h1>Cars-R-US</h1>
+    <h1 class="my-welcome-message">Hi! Welcome To Cars-R-US</h1>
+        
         <article class="choices">
             <section class="choices__paints options">
                 <h2>Paints</h2>
@@ -28,11 +29,8 @@ export const carsRUsHTML = () => {
                 ${Interiors()}
             </section>
         </article>
-        <article class="theOrderButton">
             ${ theOrderButton() }
-        </article>
-
-        <article class="customOrders">
+            <article class="customOrders">
             <h2>Custom Car Orders</h2>
             ${Orders()}
         </article>
