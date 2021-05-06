@@ -6,7 +6,7 @@ const wheels = getWheels()
 document.addEventListener(
     "change",
     (changeEvent) => {
-        if(changeEvent.target.name === "wheel") {
+        if (changeEvent.target.name === "wheel") {
             const [, wheelId] = changeEvent.target.value.split("--")
 
             setWheel(parseInt(wheelId))

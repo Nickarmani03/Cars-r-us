@@ -87,44 +87,19 @@ const database = {
             price: 1175.00,
         },
     ],
-    customOrders: [
-        {
-            id: 1,
-            paintId: 1,
-            interiorId: 2,
-            technologyId: 3,
-            wheelId: 3,
-            customerName: "Bobby",
-            timestamp: 1614659931693,
-        },
+    customerOrders: [
+        /* {
+             id: 1,
+             paintId: 1,
+             interiorId: 2,
+             technologyId: 3,
+             wheelId: 3,
+             customerName: "Bobby",
+             timestamp: 1614659931693,
+        },*/
     ],
     orderBuilder: {},// it is a temporary state since the data is not changed permanently. its held here so the customer can change their choices, until the customer hit the order buttion
 }
-export const addCustomOrders = () => {
-    if (
-        "interiorId" in database.orderBuilder &&
-        "paintId" in database.orderBuilder &&
-        "wheelId" in database.orderBuilder &&
-        "technologyId" in database.orderBuilder
-    ) {
-        const newOrder = { ...database.orderBuilder }
-        if (database.customOrders.length > 0) {
-            newOrder.id = [...database.customOrders].pop().id + 1
-        } else {
-            newOrder.id = 1
-        }
-            //newOrder.id = [...database.customOrders].pop().id + 1  
-            newOrder.timestamp = Date.now()
-            database.customOrders.push(newOrder)
-            database.orderBuilder = {}
-            document.dispatchEvent(new CustomEvent("stateChanged"))
-            return true
-        
-        } else  {
-           return false  
-        }
-       
-    }
 
 export const getPaintColor = () => {
     return [...database.paint]
@@ -139,16 +114,16 @@ export const getTechnologies = () => {
     return [...database.technology]
 }
 export const getOrders = () => {
-    return [...database.customOrders]
+    return [...database.customerOrders]
 }
 
 export const setTechnology = (id) => {
     database.orderBuilder.technologyId = id
 }
 // updates the orderbuilder object temporarily. this put the id in the parameter. when its selected it makes it choose it by the id
-
+// Copy the current state of user choices
 export const setWheel = (id) => {
-    database.orderBuilder.WheelId = id
+    database.orderBuilder.wheelId = id
 }
 
 export const setPaint = (id) => {
@@ -159,3 +134,40 @@ export const setInterior = (id) => {
     database.orderBuilder.interiorId = id
 }
 
+export const addCustomOrders = () => {
+    if (
+        "interiorId" in database.orderBuilder &&
+        "paintId" in database.orderBuilder &&
+        "technologyId" in database.orderBuilder &&
+        "wheelId" in database.orderBuilder
+        //In operator returns true if these things are IN FACT in the database.orderBuilder, so if nothing is clicked, will return false
+    ) {
+        //This is a ternary condition statement, if not using this, use an else if statement
+
+        //creates a copy of the empty orderBuild object, and stores the object in a new variable called newOrder
+        const newOrder = { ...database.orderBuilder }
+
+        //checking if there is an object with and id greater than 0
+        newOrder.id = database.customerOrders.length > 0
+            ? // -YES? if it is 
+            //  Get the id of the last order from the customerOrder array
+            //  Set the newOrder.id equal to that value + 1
+            //any objects?
+            [...database.customerOrders].pop().id + 1
+            //pop in this stiuation will retun a new object
+            : //-NO? if its not
+            // --- Set newOrder.id equal to 1
+            1;
+
+        //assigning the value of the newOrder.timestamp to the current timestamp
+        newOrder.timestamp = Date.now();
+        // Add the new order object to custom orders state
+        database.customerOrders.push(newOrder)
+        // Reset the temporary state for user choices
+        database.orderBuilder = {}
+        // Broadcast a notification that permanent state has changed
+        document.dispatchEvent(new CustomEvent("stateHasChanged"))
+        return true
+    }
+    return false
+}

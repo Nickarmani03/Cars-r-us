@@ -6,7 +6,7 @@ const paints = getPaintColor()
 document.addEventListener(
     "change",
     (changeEvent) => {
-        if(changeEvent.target.name === "paint") {
+        if (changeEvent.target.name === "paint") {
             const [, paintId] = changeEvent.target.value.split("--")
 
             setPaint(parseInt(paintId))

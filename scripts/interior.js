@@ -5,14 +5,14 @@ const interiors = getInteriors()
 document.addEventListener(
     "change",
     (changeEvent) => {
-        if(changeEvent.target.name === "interior") { // sees if a change even has happened
+        if (changeEvent.target.name === "interior") {
             const [, interiorId] = changeEvent.target.value.split("--")
 
             setInterior(parseInt(interiorId))
         }
     }
 )
-
+// sees if a change even has happened
 export const Interiors = () => {
 
     let html = "<ul class='choice--list interior--list'>"

@@ -5,7 +5,7 @@ const technologies = getTechnologies()
 document.addEventListener(
     "change",
     (changeEvent) => {
-        if(changeEvent.target.name === "technology") {
+        if (changeEvent.target.name === "technology") {
             const [, technologyId] = changeEvent.target.value.split("--")
             setTechnology(parseInt(technologyId))
         }
